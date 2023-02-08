@@ -13,22 +13,26 @@ import java.util.ArrayList;
 public class Deck extends Actor
 {
     private Card[] initialCards;
-    private ArrayList<Card> shuffledCards;
-    private ArrayList<Card> sortedCards;
+    private Card[] shuffledCards;
+    private Card[] selectionSort;
+    private Card[] insertionSort;
+    private Card[] mergeSort;
     
     // Instantiates a new deck
     public Deck()
     {
         initializeCards();
         shuffleCards();
+        initializeSortArrays();
     }
     
     // Adds cards to board after Deck is initialized
     public void addedToWorld(World world)
     {
         showCards(world, shuffledCards, 80);
-        sort();
-        showCards(world, sortedCards, 220);
+        showCards(world, selectionSort(selectionSort, initialCards.length), 220);
+        showCards(world, insertionSort(insertionSort, initialCards.length), 360);
+        showCards(world, mergeSort(mergeSort, initialCards.length), 500);
     }
     
     // Initializes all Hearts Ace through King
@@ -53,34 +57,82 @@ public class Deck extends Actor
     }
     
     // Shuffles the unshuffled deck
-    public void shuffleCards()
+    private void shuffleCards()
     {
-        shuffledCards = new ArrayList<Card>();
+        shuffledCards = new Card[initialCards.length];
+        Card[] tempCards = new Card[initialCards.length];
+        shuffledCards = initialCards;
+        tempCards = initialCards;
+        
+        // Makes sure that shuffledCards has no null elements
         for(int i = 0; i < initialCards.length; i++)
         {
-            int index = (int)(Math.random() * (shuffledCards.size() + 1));
-            shuffledCards.add(index, initialCards[i]); 
+            shuffledCards[i] = initialCards[i];
+        }
+        
+        // This algorithm will swap the cards 300 times
+        for(int i = 0; i < 300; i++)
+        {
+            int shuffledIndex = (int)(Math.random() * initialCards.length);
+            int tempIndex = (int)(Math.random() * initialCards.length);
+            Card shuffled = shuffledCards[shuffledIndex];
+            shuffledCards[shuffledIndex] = tempCards[tempIndex];
+            tempCards[tempIndex] = shuffled;
+        }
+    }
+    
+    // Sets all the sorted arrays equal to the shuffledCard array
+    private void initializeSortArrays()
+    {
+        selectionSort = new Card[initialCards.length];
+        insertionSort = new Card[initialCards.length];
+        mergeSort = new Card[initialCards.length];
+        
+        for(int i = 0; i < initialCards.length; i++)
+        { 
+            Card card1 = new Card(shuffledCards[i].getImageFile(),shuffledCards[i].getValue());
+            Card card2 = new Card(shuffledCards[i].getImageFile(),shuffledCards[i].getValue());
+            Card card3 = new Card(shuffledCards[i].getImageFile(),shuffledCards[i].getValue());
+            selectionSort[i] = card1;
+            insertionSort[i] = card2;
+            mergeSort[i] = card3;
         }
     }
     
     // Places card on board at y
-    private void showCards(World world, ArrayList<Card> cards, int y)
+    private void showCards(World world, Card[] cards, int y)
     {
         
-       for(int i = 0; i < cards.size(); i++)
+       for(int i = 0; i < cards.length; i++)
        {
-           world.addObject(cards.get(i),58 + 30 * i, y);
+           world.addObject(cards[i],58 + 30 * i, y);
        } 
     }
     
     /* This is where the students attempt their sort algorithm by taking the
-     * cards from the shuffled list and adding them to the sorted list.     
+    *  cards from the shuffled list and adding them to the sorted list.     
     **/
-    private void sort()
+    private Card[] selectionSort(Card[] arr, int n)
     {
-        sortedCards = new ArrayList<Card>();
+        //put sort algorithm here
+        
+        return selectionSort;
+    }
+    
+    private Card[] insertionSort(Card[] arr, int n)
+     {
         
         //put sort algorithm here
+        
+        return insertionSort;
+    }
+    
+    private Card[] mergeSort(Card[] arr, int n)
+     {
+        
+        //put sort algorithm here
+        
+        return mergeSort;
     }
 }
 

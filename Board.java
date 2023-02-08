@@ -16,7 +16,7 @@ public class Board extends World
     public Board()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(480, 300, 1, false); 
+        super(480, 580, 1, false); 
         prepare();
 
     }
@@ -25,6 +25,4 @@ public class Board extends World
     {
         addObject(new Deck(),-30, -30);
     }
-
- 
 }
