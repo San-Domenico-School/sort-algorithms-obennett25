@@ -23,6 +23,6 @@ public class Board extends World
     
     private void prepare()
     {
-        addObject(new Deck(),-30, -30);
+        addObject(new Dealer(),-30, -30);
     }
 }
