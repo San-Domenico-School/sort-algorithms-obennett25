@@ -71,6 +71,11 @@ public class Dealer extends Actor
     
     /* In this space write the pseudocode for your selection sort
      * 
+     * The code starts at the first element in the array (i = 0). It then assumes that the current index i is the index of the smallest element
+     * (minIndex = i) The inner for loop goes through all of the remaining elements. During this loop, it compares each card value with the 
+     * current minimun value. If a new minimum value is found, minIndex is updated to j. After finding the minimum value it is put in the 
+     * position i which is the correct sorted position. The algorthm then moves to the next position (i++) and repeats until the entire arr
+     * is sorted.
      * 
      * 
      */
@@ -78,20 +83,49 @@ public class Dealer extends Actor
     {
         //put sort algorithm here
         
-        return selectionSort;
+        for (int i = 0; i < n - 1; i++)
+        {
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++)
+            {
+                if (arr[j].getValue() < arr[minIndex].getValue())
+                {
+                    minIndex = j;
+                }
+            }
+            Card card1 = arr[minIndex];
+            arr[minIndex] = arr[i];
+            arr[i] = card1;
+        }
+        
+        return arr;
     }
     
     /* In this space write the pseudocode for your insertion sort
      * 
-     * 
+     * The algorithm starts at the seconds element of the array. It takes that and stores in a  temporary value. It then compares this card
+     * with the element of the sortedf part of the array (to the left of i). It uses a while loop and as long as the sorted cards are
+     * greater than the currentCard they are shifted on position to the right. This continues as j is decremented as it continues checking 
+     * to the left. Once it finds the rgiht spot, it places the currentCard in that position. It is repeated for each element in the array.
      * 
      */
     private Card[] insertionSort(Card[] arr, int n)
     {
-        
-        //put sort algorithm here
-        
-        return insertionSort;
+        for (int i = 1; i < n; i ++)
+        {
+            Card currentCard = arr[i];
+            int j = i - 1;
+            
+            while ( j >= 0 && arr[j].getValue() > currentCard.getValue())
+            {   
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            
+            arr[j + 1] = currentCard;
+            
+        }
+        return arr;
     }
     
     /* In this space write the pseudocode for your merge sort
